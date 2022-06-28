@@ -11,6 +11,7 @@ class LoginModel extends ChangeNotifier {
   String password = '';
 
   bool isLoading = false;
+  bool isObscure = true;
 
   void startLoading() {
     isLoading = true;
@@ -29,6 +30,11 @@ class LoginModel extends ChangeNotifier {
 
   void setPassword(String password) {
     this.password = password;
+    notifyListeners();
+  }
+
+  void setObscure() {
+    isObscure = !isObscure;
     notifyListeners();
   }
 

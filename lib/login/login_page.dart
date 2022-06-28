@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:plantapp2/register/register_page.dart';
 import 'package:plantapp2/rootpage.dart';
@@ -26,7 +28,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: TextField(
+                        child: TextFormField(
                           onChanged: (email) {
                             model.setEmail(email);
                           },
@@ -46,12 +48,12 @@ class LoginPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: TextField(
+                        child: TextFormField(
+                          obscureText: model.isObscure,
                           onChanged: (password) {
                             model.setPassword(password);
                           },
                           decoration: const InputDecoration(
-                            // filled: true,
                             hintText: 'パスワード',
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
