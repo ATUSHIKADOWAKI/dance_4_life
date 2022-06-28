@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
         ],
         locale: const Locale('ja'),
         theme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: <String, WidgetBuilder>{
           '/': (_) => LoginPage(),
-          // '/': (_) => RootPage(),
         });
   }
 }
