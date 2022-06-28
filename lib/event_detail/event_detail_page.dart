@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:plantapp2/entry/entry_page.dart';
+import 'package:plantapp2/report/report_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../entrylist/entorylist_page.dart';
@@ -18,6 +19,18 @@ class EventDetail extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('詳細'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReportPage(eventNum),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.report))
+          ],
         ),
         body: Center(
           child: Consumer<EventDetailModel>(builder: (context, model, child) {
