@@ -4,7 +4,7 @@ import 'firstpage.dart';
 import 'add_event/add_event_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'main/main_model.dart';
+import 'main_model.dart';
 import 'profile/profile_page.dart';
 
 class RootPage extends StatelessWidget {

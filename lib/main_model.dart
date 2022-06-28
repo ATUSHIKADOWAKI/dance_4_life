@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../domain/events.dart';
+import 'domain/events.dart';
 import 'package:flutter/cupertino.dart';
 
 class MainModel extends ChangeNotifier {

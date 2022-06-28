@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:plantapp2/calendar/calendar_page.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'main/main_model.dart';
+import 'main_model.dart';
 import 'event_detail/event_detail_page.dart';
 import 'widget/eventcard.dart';
 import 'calendar/calendar_page.dart';
