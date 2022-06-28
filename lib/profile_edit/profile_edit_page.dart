@@ -54,16 +54,6 @@ class ProfileEditPage extends StatelessWidget {
                                 );
                               }
                             })(),
-                            //
-                            // model.imageFile != null
-                            //     ? Image.file(
-                            //         model.imageFile!,
-                            //         fit: BoxFit.cover,
-                            //       )
-                            //     : Image.network(
-                            //         imgURL.toString(),
-                            //         fit: BoxFit.cover,
-                            //       ),
                           ),
                           onTap: () async {
                             await model.pickImage();

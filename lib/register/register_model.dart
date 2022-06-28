@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterModel extends ChangeNotifier {
   // final titleController = TextEditingController();
@@ -38,6 +39,15 @@ class RegisterModel extends ChangeNotifier {
   void setUserName(String username) {
     this.username = username;
     notifyListeners();
+  }
+
+  Future launchUrl() async {
+    var url = "https://plantapp-eae67.web.app/";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'アクセスできません。';
+    }
   }
 
   Future signUp() async {
