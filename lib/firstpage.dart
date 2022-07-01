@@ -62,6 +62,7 @@ class FirstPage extends StatelessWidget {
                       imgURL: events[i].imgURL,
                       title: events[i].title,
                       date: events[i].date,
+                      // blockUid: events[i].blockUid,
                       press: () {
                         Navigator.push(
                           context,

@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 
 class CalenderModel extends ChangeNotifier {
   List<Events> events = [];
+  late int eventNum;
 
   int getHashCode(DateTime key) {
     return key.day * 1000000 + key.month * 10000 + key.year;
@@ -37,7 +38,6 @@ class CalenderModel extends ChangeNotifier {
     // toList(): Map()から返ってきたIterable→Listに変換する。
     final events = docs.docs.map((doc) => Events(doc)).toList();
     this.events = events;
-    print(events);
     notifyListeners();
   }
 
@@ -57,8 +57,6 @@ class CalenderModel extends ChangeNotifier {
     final events = docs.docs.map((doc) => Events(doc)).toList();
     this.events = events;
 
-    // eventsList[DateTime.utc(2022, 7, 16)] = ['RF JAM'];
-    eventsList[DateTime.utc(2022, 05, 28)]?.addAll(['ジョニー鉄パイプ']);
     for (int i = 0; i < events.length; i++) {
       int year = int.parse(events[i].date.toString().substring(0, 4));
       int month = int.parse(events[i].date.toString().substring(5, 7));
@@ -71,7 +69,6 @@ class CalenderModel extends ChangeNotifier {
           events[i].title.toString()
         ];
       }
-      print(eventsList);
     }
 
     notifyListeners();

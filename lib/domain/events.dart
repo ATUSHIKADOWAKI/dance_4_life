@@ -26,7 +26,6 @@ class Events {
     date = doc['date'];
     imgURL = doc['imgURL'];
     detail = doc['detail'];
-    // eventID = doc['eventID'];
   }
 }
 

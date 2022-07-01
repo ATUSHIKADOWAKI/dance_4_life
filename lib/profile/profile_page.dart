@@ -51,6 +51,13 @@ class ProfilePage extends StatelessWidget {
                       },
                     ),
                     ListTile(
+                      title: const Text("利用規約 & プライバシーポリシー"),
+                      trailing: const Icon(Icons.arrow_forward),
+                      onTap: () {
+                        model.launchUrl();
+                      },
+                    ),
+                    ListTile(
                       title: const Text("ログアウト"),
                       trailing: const Icon(Icons.arrow_forward),
                       onTap: () async {

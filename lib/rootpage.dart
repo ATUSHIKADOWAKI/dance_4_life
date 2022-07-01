@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'firstpage.dart';
 import 'add_event/add_event_page.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'main_model.dart';
 import 'profile/profile_page.dart';
@@ -50,11 +49,7 @@ class RootPage extends StatelessWidget {
                   //todo ログイン確認
                   onTap: (index) {
                     if (FirebaseAuth.instance.currentUser != null) {
-                      print('ログインしている');
-                      print(FirebaseAuth.instance.currentUser?.email);
-                    } else {
-                      print('ログインしていない');
-                    }
+                    } else {}
                     model.currentIndex = index;
                     currentIndex = model.currentIndex;
                   }),

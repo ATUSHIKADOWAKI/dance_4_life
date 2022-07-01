@@ -109,7 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       Column(
                                         children: [
                                           Text(
-                                            '利用規約 & プライバシーポリシーを\nご理解の上ご利用ください。',
+                                            'Dance4Lifeを利用するには\n利用規約に同意いただく必要がございます。',
                                             textAlign: TextAlign.center,
                                           ),
                                           TextButton(
@@ -117,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                               model.launchUrl();
                                             },
                                             child: Text(
-                                              '利用規約 & プライバシーポリシー',
+                                              '利用規約',
                                               style: TextStyle(
                                                   color: Colors.redAccent),
                                             ),
