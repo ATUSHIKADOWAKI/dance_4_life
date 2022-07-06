@@ -51,12 +51,12 @@ class FirstPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text(model.events[1].title.toString()),
                   for (int i = 0; i < events.length; i++) ...{
                     EventCard(
                       imgURL: events[i].imgURL,
                       title: events[i].title,
                       date: events[i].date,
+                      eventID: events[i].eventId,
                       // blockUid: events[i].blockUid,
                       press: () {
                         Navigator.push(

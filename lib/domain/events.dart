@@ -32,6 +32,20 @@ class Events {
   }
 }
 
+class BlockList {
+  String? eventId;
+  String? title;
+  String? date;
+
+  // String? eventID;
+
+  BlockList(DocumentSnapshot doc) {
+    eventId = doc['eventID'];
+    title = doc['title'];
+    date = doc['date'];
+  }
+}
+
 class HostEntryList {
   String? eventId;
   String? title;
