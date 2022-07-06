@@ -22,11 +22,49 @@ class EventDetail extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ReportPage(eventNum),
-                    ),
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return AlertDialog(
+                        title: const Text(
+                          "不適切なコンテンツですか？",
+                          textAlign: TextAlign.center,
+                        ),
+                        content: null,
+                        actions: <Widget>[
+                          // ボタン領域
+                          Column(
+                            children: [
+                              SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  TextButton(
+                                      child: const Text(
+                                        "ブロックする",
+                                      ),
+                                      onPressed: () async {}),
+                                  TextButton(
+                                      child: const Text(
+                                        "通報する",
+                                      ),
+                                      onPressed: () async {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReportPage(eventNum),
+                                          ),
+                                        );
+                                      }),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
                 icon: Icon(Icons.report))
