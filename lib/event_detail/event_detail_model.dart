@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../domain/events.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -6,6 +7,17 @@ class EventDetailModel extends ChangeNotifier {
   List<Events> events = [];
 
   bool isLoading = false;
+  final uid = FirebaseAuth.instance.currentUser!.uid;
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void endLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
 
   Future<void> fetchEvents() async {
     // Firestoreからコレクション'events'(QuerySnapshot)を取得してdocsに代入。
@@ -19,6 +31,23 @@ class EventDetailModel extends ChangeNotifier {
     final events = docs.docs.map((doc) => Events(doc)).toList();
     this.events = events;
 
+    notifyListeners();
+  }
+
+  Future addBlockList(
+      String? eventTitle, String? eventDate, String? eventId) async {
+    final doc = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('blockedContent')
+        .doc(eventId);
+
+    //FireStoreに追加
+    await doc.set({
+      'eventID': eventId,
+      'title': eventTitle,
+      'date': eventDate,
+    });
     notifyListeners();
   }
 

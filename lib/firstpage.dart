@@ -58,7 +58,7 @@ class FirstPage extends StatelessWidget {
                       date: events[i].date,
                       eventID: events[i].eventId,
                       // blockUid: events[i].blockUid,
-                      press: () {
+                      press: () async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -67,7 +67,7 @@ class FirstPage extends StatelessWidget {
                         );
                       },
                     ),
-                  }
+                  },
                 ],
               ),
             ),

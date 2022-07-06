@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 class EventCardModel extends ChangeNotifier {
   EventCardModel(this.eventID);
   List<BlockList> blockList = [];
+  List<String> blockList2 = [];
 
   //イベントIDを引数で渡してきたもの。
   final String? eventID;
@@ -15,7 +16,6 @@ class EventCardModel extends ChangeNotifier {
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> checkBlockedContent() async {
-    // Firestoreからコレクション'events'(QuerySnapshot)を取得してdocsに代入。
     final docs = await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
@@ -25,8 +25,17 @@ class EventCardModel extends ChangeNotifier {
     final blockList = docs.docs.map((doc) => BlockList(doc)).toList();
     this.blockList = blockList;
 
-    print(eventID);
-    if (blockList[0].eventId == eventID) {
+    //everyで全ての要素をチェック？
+    var isBlocked = blockList.contains(eventID);
+
+    blockList.forEach((block) => blockList2
+        .add(block.eventId.toString())); // => banana pineapple watermelon
+    //todo forEachでリストに追加してみる。
+    print(blockList2);
+    // var isBlocked =
+    //     blockList.every((blockContent) => blockContent.eventId == eventID);
+
+    if (blockList2.contains(eventID)) {
       visible = false;
     } else {
       visible = true;

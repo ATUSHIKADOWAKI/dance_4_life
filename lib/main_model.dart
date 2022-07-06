@@ -24,17 +24,6 @@ class MainModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> adBlockList() async {
-    final docs = await FirebaseFirestore.instance
-        .collection('event')
-        .orderBy('timestamp', descending: true)
-        .get();
-    final events = docs.docs.map((doc) => Events(doc)).toList();
-    this.events = events;
-
-    notifyListeners();
-  }
-
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
   set currentIndex(int index) {

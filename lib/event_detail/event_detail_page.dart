@@ -14,66 +14,98 @@ class EventDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EventDetailModel>(
-      // createでfetchBooks()も呼び出すようにしておく。
       create: (_) => EventDetailModel()..fetchEvents(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('詳細'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) {
-                      return AlertDialog(
-                        title: const Text(
-                          "不適切なコンテンツですか？",
-                          textAlign: TextAlign.center,
-                        ),
-                        content: null,
-                        actions: <Widget>[
-                          // ボタン領域
-                          Column(
-                            children: [
-                              SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  TextButton(
-                                      child: const Text(
-                                        "ブロックする",
-                                      ),
-                                      onPressed: () async {}),
-                                  TextButton(
-                                      child: const Text(
-                                        "通報する",
-                                      ),
-                                      onPressed: () async {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ReportPage(eventNum),
-                                          ),
-                                        );
-                                      }),
-                                ],
-                              ),
-                            ],
+      child: Consumer<EventDetailModel>(builder: (context, model, child) {
+        final events = model.events;
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('詳細'),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: const Text(
+                            "不適切なコンテンツですか？",
+                            textAlign: TextAlign.center,
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                icon: Icon(Icons.report))
-          ],
-        ),
-        body: Center(
-          child: Consumer<EventDetailModel>(builder: (context, model, child) {
-            final events = model.events;
-            return SingleChildScrollView(
+                          content: null,
+                          actions: <Widget>[
+                            // ボタン領域
+                            Column(
+                              children: [
+                                SizedBox(height: 15),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    TextButton(
+                                        child: const Text(
+                                          "ブロックする",
+                                        ),
+                                        onPressed: () async {
+                                          try {
+                                            model.startLoading();
+                                            model.addBlockList(
+                                                events[eventNum].title,
+                                                events[eventNum].date,
+                                                events[eventNum].eventId);
+                                            Navigator.popUntil(context,
+                                                (route) => route.isFirst);
+                                            final snackBar = SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text(
+                                                'ブロックリストに追加しました。',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            );
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(snackBar);
+                                          } catch (e) {
+                                            final snackBar = SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text(
+                                                e.toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            );
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(snackBar);
+                                          } finally {
+                                            model.endLoading();
+                                          }
+                                        }),
+                                    TextButton(
+                                        child: const Text(
+                                          "通報する",
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ReportPage(eventNum),
+                                            ),
+                                          );
+                                        }),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.report))
+            ],
+          ),
+          body: Center(
+            child: SingleChildScrollView(
               child: Column(children: [
                 Container(
                   child: events[eventNum].imgURL != null ||
@@ -301,10 +333,10 @@ class EventDetail extends StatelessWidget {
                   ),
                 ),
               ]),
-            );
-          }),
-        ),
-      ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
