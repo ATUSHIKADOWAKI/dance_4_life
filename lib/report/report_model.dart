@@ -50,7 +50,6 @@ class ReportModel extends ChangeNotifier {
     // toList(): Map()から返ってきたIterable→Listに変換する。
     final events = docs.docs.map((doc) => Events(doc)).toList();
     this.events = events;
-    print(events);
     notifyListeners();
   }
 

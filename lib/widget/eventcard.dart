@@ -7,8 +7,6 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(blockUid);
-    print(title);
     return Visibility(
       visible: true,
       child: GestureDetector(

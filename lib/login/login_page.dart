@@ -121,11 +121,7 @@ class LoginPage extends StatelessWidget {
                             onPressed: () {
                               //todo　ログインチェック
                               if (FirebaseAuth.instance.currentUser != null) {
-                                print('ログインしている');
-                                print(FirebaseAuth.instance.currentUser?.email);
-                              } else {
-                                print('ログインしていない');
-                              }
+                              } else {}
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

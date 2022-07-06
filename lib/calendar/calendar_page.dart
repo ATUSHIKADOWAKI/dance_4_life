@@ -43,7 +43,6 @@ class CalendarPage extends StatelessWidget {
                   if (!isSameDay(model.selectedDay, selectedDay)) {
                     model.setDayCalender(selectedDay, focusedDay);
                     _getEventForDay(selectedDay);
-                    print(selectedDay);
                   }
                 },
                 onPageChanged: (focusedDay) {

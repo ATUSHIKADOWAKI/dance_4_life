@@ -7,7 +7,7 @@ class Events {
   String? imgURL;
   String? detail;
   //array is here.
-  List<String?> blockUid = [];
+  // List<String?> blockUid = [];
   String? eventPlace;
   String? eventAddress;
   String? eventCategory;
@@ -27,7 +27,7 @@ class Events {
     date = doc['date'];
     imgURL = doc['imgURL'];
     detail = doc['detail'];
-    blockUid = doc['blockUid'];
+    // blockUid = doc['blockUid'];
     // eventID = doc['eventID'];
   }
 }

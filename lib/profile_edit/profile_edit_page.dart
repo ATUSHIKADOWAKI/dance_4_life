@@ -90,7 +90,6 @@ class ProfileEditPage extends StatelessWidget {
                                   model.startLoading();
                                   try {
                                     await model.updateProfile();
-                                    print(model.isLoading);
                                     Navigator.of(context).pop();
                                     final snackBar = SnackBar(
                                       backgroundColor: Colors.teal,
@@ -113,7 +112,6 @@ class ProfileEditPage extends StatelessWidget {
                                         .showSnackBar(snackBar);
                                   } finally {
                                     model.endLoading();
-                                    print(model.isLoading);
                                   }
                                 }
                               : null,

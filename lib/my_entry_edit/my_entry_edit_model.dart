@@ -54,8 +54,6 @@ class MyEntryEditModel extends ChangeNotifier {
   }
 
   Future updateEntry() async {
-    print(documentId);
-
     this.user = userEditingController.text;
     this.rep = repEditingController.text;
     this.genre = genreEditingController.text;

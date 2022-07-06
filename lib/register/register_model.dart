@@ -75,8 +75,6 @@ class RegisterModel extends ChangeNotifier {
         'email': email,
         'username': username,
       });
-      print(email);
-      print(username);
     }
   }
 }

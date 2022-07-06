@@ -163,8 +163,7 @@ class EventDetail extends StatelessWidget {
                                         await locationFromAddress(
                                       events[eventNum].eventAddress.toString(),
                                     );
-                                    print(locations.first.latitude);
-                                    print(locations.first.longitude);
+
                                     final url =
                                         'https://www.google.com/maps/search/?api=1&query=${locations.first.latitude},${locations.first.longitude}';
                                     launch(url, forceSafariVC: false);

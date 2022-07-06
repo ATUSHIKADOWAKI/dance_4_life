@@ -42,12 +42,6 @@ class FirstPage extends StatelessWidget {
                             ),
                             child: CalendarPage());
                       });
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const CalendarPage(),
-                  //   ),
-                  // );
                 },
                 disabledColor: Colors.white,
               ),
@@ -57,6 +51,7 @@ class FirstPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Text(model.events[1].title.toString()),
                   for (int i = 0; i < events.length; i++) ...{
                     EventCard(
                       imgURL: events[i].imgURL,

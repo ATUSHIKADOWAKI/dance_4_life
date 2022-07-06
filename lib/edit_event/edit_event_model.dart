@@ -108,7 +108,6 @@ class EditEventModel extends ChangeNotifier {
     if (detailEditingController.text.isEmpty) {
       throw '詳細が空です。';
     }
-    print(documentId);
     if (imageFile != null) {
       final doc = FirebaseFirestore.instance.collection('event').doc();
 

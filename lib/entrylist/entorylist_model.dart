@@ -18,7 +18,6 @@ class EntoryListModel extends ChangeNotifier {
   }
 
   Future<void> fetchEntryList(String eventTitle) async {
-    print(eventTitle);
     // Firestoreからコレクション'events'(QuerySnapshot)を取得してdocsに代入。
     final entry = await FirebaseFirestore.instance
         .collection('entry')
