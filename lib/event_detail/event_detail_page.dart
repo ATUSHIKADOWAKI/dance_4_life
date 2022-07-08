@@ -48,7 +48,7 @@ class EventDetail extends StatelessWidget {
                                         onPressed: () async {
                                           try {
                                             model.startLoading();
-                                            model.addBlockList(
+                                            await model.addBlockList(
                                                 events[eventNum].title,
                                                 events[eventNum].date,
                                                 events[eventNum].eventId);

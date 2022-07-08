@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 class EventCardModel extends ChangeNotifier {
   EventCardModel(this.eventID);
   List<BlockList> blockList = [];
-  List<String> blockList2 = [];
+  List<String> blockListID = [];
 
   //イベントIDを引数で渡してきたもの。
   final String? eventID;
@@ -26,16 +26,15 @@ class EventCardModel extends ChangeNotifier {
     this.blockList = blockList;
 
     //everyで全ての要素をチェック？
-    var isBlocked = blockList.contains(eventID);
 
-    blockList.forEach((block) => blockList2
+    blockList.forEach((block) => blockListID
         .add(block.eventId.toString())); // => banana pineapple watermelon
     //todo forEachでリストに追加してみる。
-    print(blockList2);
+    print(blockListID);
     // var isBlocked =
     //     blockList.every((blockContent) => blockContent.eventId == eventID);
 
-    if (blockList2.contains(eventID)) {
+    if (blockListID.contains(eventID)) {
       visible = false;
     } else {
       visible = true;

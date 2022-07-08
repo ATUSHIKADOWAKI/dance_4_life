@@ -43,12 +43,11 @@ class EventDetailModel extends ChangeNotifier {
         .doc(eventId);
 
     //FireStoreに追加
-    await doc.set({
+    return await doc.set({
       'eventID': eventId,
       'title': eventTitle,
       'date': eventDate,
     });
-    notifyListeners();
   }
 
   int _currentIndex = 0;
