@@ -23,102 +23,191 @@ class ProfilePage extends StatelessWidget {
                   topLeft: const Radius.circular(20),
                   bottomLeft: const Radius.circular(20)),
               child: Drawer(
-                child: ListView(
-                  children: <Widget>[
-                    const header(),
-                    ListTile(
-                      title: const Text("エントリー済みイベント"),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MyEntryPage(),
-                          ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: const Text("イベントの編集"),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HostEventPage(),
-                          ),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      title: const Text("利用規約 & プライバシーポリシー"),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        model.launchUrl();
-                      },
-                    ),
-                    ListTile(
-                      title: const Text("ログアウト"),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () async {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return AlertDialog(
-                              title: const Text("ログアウトしますか？"),
-                              content: null,
-                              actions: <Widget>[
-                                // ボタン領域
-                                TextButton(
-                                  child: const Text("戻る"),
-                                  onPressed: () => Navigator.pop(context),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const header(),
+                          ListTile(
+                            title: const Text("エントリー済みイベント"),
+                            trailing: const Icon(Icons.arrow_forward),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyEntryPage(),
                                 ),
-                                TextButton(
-                                    child: const Text("ログアウトする"),
-                                    onPressed: () async {
-                                      model.startLoading();
-                                      try {
-                                        await model.signOut();
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const LoginPage()),
-                                            (_) => false);
-                                        final snackBar = SnackBar(
-                                          backgroundColor: Colors.red,
-                                          content: Text(
-                                            model.infoText,
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                      } catch (e) {
-                                        final snackBar = SnackBar(
-                                            backgroundColor: Colors.red,
-                                            content: Text(
-                                              e.toString(),
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            ));
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginPage(),
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
-                                      }
-                                    }),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                              );
+                            },
+                          ),
+                          ListTile(
+                            title: const Text("主催イベントの編集"),
+                            trailing: const Icon(Icons.arrow_forward),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HostEventPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          ListTile(
+                            title: const Text("利用規約 & プライバシーポリシー"),
+                            trailing: const Icon(Icons.arrow_forward),
+                            onTap: () {
+                              model.launchUrl();
+                            },
+                          ),
+                          ListTile(
+                            title: const Text("ブロックリスト"),
+                            trailing: const Icon(Icons.arrow_forward),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HostEventPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          ListTile(
+                            title: const Text("ログアウト"),
+                            trailing: const Icon(Icons.arrow_forward),
+                            onTap: () async {
+                              showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                    title: const Text("ログアウトしますか？"),
+                                    content: null,
+                                    actions: <Widget>[
+                                      // ボタン領域
+                                      TextButton(
+                                        child: const Text("戻る"),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                      TextButton(
+                                          child: const Text("ログアウトする"),
+                                          onPressed: () async {
+                                            model.startLoading();
+                                            try {
+                                              await model.signOut();
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const LoginPage()),
+                                                  (_) => false);
+                                              final snackBar = SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content: Text(
+                                                  model.infoText,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            } catch (e) {
+                                              final snackBar = SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  content: Text(
+                                                    e.toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ));
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginPage(),
+                                                ),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            }
+                                          }),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: const Text("アカウント削除"),
+                            tileColor: Colors.red,
+                            trailing: const Icon(Icons.arrow_forward),
+                            onTap: () async {
+                              showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                    title: const Text("ログアウトしますか？"),
+                                    content: null,
+                                    actions: <Widget>[
+                                      // ボタン領域
+                                      TextButton(
+                                        child: const Text("戻る"),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                      TextButton(
+                                          child: const Text("ログアウトする"),
+                                          onPressed: () async {
+                                            model.startLoading();
+                                            try {
+                                              await model.signOut();
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const LoginPage()),
+                                                  (_) => false);
+                                              final snackBar = SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content: Text(
+                                                  model.infoText,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            } catch (e) {
+                                              final snackBar = SnackBar(
+                                                  backgroundColor: Colors.red,
+                                                  content: Text(
+                                                    e.toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white),
+                                                  ));
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginPage(),
+                                                ),
+                                              );
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(snackBar);
+                                            }
+                                          }),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
