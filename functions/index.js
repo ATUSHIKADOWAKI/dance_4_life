@@ -28,6 +28,7 @@ sgMail.setApiKey(functions.config().sendgrid.key);
       const email = user.email; // ユーザーのメールアドレスを取得する。
       const displayName = user.displayName; // ユーザーの名前を取得する。
 
+
       const msg = {
         to: email,
         from: "Dance4Life<at4forfor@gmail.com>", // Change to your verified sender email
