@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 class MainModel extends ChangeNotifier {
   List<Events> events = [];
 
-  bool isLoading = false;
+  bool isLoading = true;
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> fetchEvents() async {
@@ -20,6 +20,7 @@ class MainModel extends ChangeNotifier {
     // toList(): Map()から返ってきたIterable→Listに変換する。
     final events = docs.docs.map((doc) => Events(doc)).toList();
     this.events = events;
+    isLoading = false;
 
     notifyListeners();
   }

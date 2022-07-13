@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plantapp2/profile_edit/profile_edit_model.dart';
 import 'package:provider/provider.dart';
 
+import '../rootpage.dart';
+
 class ProfileEditPage extends StatelessWidget {
   ProfileEditPage(this.username, this.genre, this.rep, this.imgURL);
   final String? username;
@@ -90,7 +92,12 @@ class ProfileEditPage extends StatelessWidget {
                                   model.startLoading();
                                   try {
                                     await model.updateProfile();
-                                    Navigator.of(context).pop();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => RootPage(),
+                                      ),
+                                    );
                                     final snackBar = SnackBar(
                                       backgroundColor: Colors.teal,
                                       content: Text(

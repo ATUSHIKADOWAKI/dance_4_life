@@ -5,6 +5,7 @@ import 'package:plantapp2/report/report_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../entrylist/entorylist_page.dart';
+import '../rootpage.dart';
 import 'event_detail_model.dart';
 
 class EventDetail extends StatelessWidget {
@@ -52,8 +53,13 @@ class EventDetail extends StatelessWidget {
                                                 events[eventNum].title,
                                                 events[eventNum].date,
                                                 events[eventNum].eventId);
-                                            Navigator.popUntil(context,
-                                                (route) => route.isFirst);
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RootPage(),
+                                              ),
+                                            );
                                             final snackBar = SnackBar(
                                               backgroundColor: Colors.red,
                                               content: Text(

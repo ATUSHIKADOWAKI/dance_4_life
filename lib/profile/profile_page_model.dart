@@ -4,23 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePageModel extends ChangeNotifier {
-  bool isLoading = false;
+  bool isLoading = true;
   String infoText = 'ログアウトしました。';
   String? email;
   String? username;
   String? rep;
   String? genre;
   String? imgURL;
-
-  void startLoading() {
-    isLoading = true;
-    notifyListeners();
-  }
-
-  void endLoading() {
-    isLoading = false;
-    notifyListeners();
-  }
+  final timestamp = DateTime.now();
 
   Future signOut() async {
     final _auth = FirebaseAuth.instance;
@@ -48,7 +39,31 @@ class ProfilePageModel extends ChangeNotifier {
     this.genre = data?['genre'];
     this.rep = data?['rep'];
     this.imgURL = data?['imgURL'];
+    isLoading = false;
 
     notifyListeners();
+  }
+
+  void startLoading() {
+    isLoading = true;
+    notifyListeners();
+  }
+
+  void endLoading() {
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future deleteUser() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    await FirebaseFirestore.instance
+        .collection('deleted_users')
+        .doc()
+        .set({'uid': uid, 'createdAt': timestamp})
+        .then((value) async => {
+              await FirebaseAuth.instance.signOut(),
+            })
+        .catchError((e) => print("Failed to add user: $e"));
   }
 }

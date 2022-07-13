@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plantapp2/host_event/host_event_page.dart';
@@ -5,6 +6,8 @@ import 'package:plantapp2/login/login_page.dart';
 import 'package:plantapp2/my_entry_event/my_entry_page.dart';
 import 'package:plantapp2/profile/profile_page_model.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../profile_edit/profile_edit_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -31,7 +34,11 @@ class ProfilePage extends StatelessWidget {
                           const header(),
                           ListTile(
                             title: const Text("エントリー済みイベント"),
-                            trailing: const Icon(Icons.arrow_forward),
+                            leading: Icon(
+                              Icons.event_note,
+                              size: 20.0,
+                              color: Colors.white,
+                            ),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -43,7 +50,11 @@ class ProfilePage extends StatelessWidget {
                           ),
                           ListTile(
                             title: const Text("主催イベントの編集"),
-                            trailing: const Icon(Icons.arrow_forward),
+                            leading: Icon(
+                              Icons.edit,
+                              size: 20.0,
+                              color: Colors.white,
+                            ),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -55,14 +66,22 @@ class ProfilePage extends StatelessWidget {
                           ),
                           ListTile(
                             title: const Text("利用規約 & プライバシーポリシー"),
-                            trailing: const Icon(Icons.arrow_forward),
+                            leading: Icon(
+                              Icons.description_outlined,
+                              size: 20.0,
+                              color: Colors.white,
+                            ),
                             onTap: () {
                               model.launchUrl();
                             },
                           ),
                           ListTile(
                             title: const Text("ブロックリスト"),
-                            trailing: const Icon(Icons.arrow_forward),
+                            leading: Icon(
+                              Icons.block,
+                              size: 20.0,
+                              color: Colors.white,
+                            ),
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -74,7 +93,11 @@ class ProfilePage extends StatelessWidget {
                           ),
                           ListTile(
                             title: const Text("ログアウト"),
-                            trailing: const Icon(Icons.arrow_forward),
+                            leading: Icon(
+                              Icons.exit_to_app,
+                              size: 20.0,
+                              color: Colors.white,
+                            ),
                             onTap: () async {
                               showDialog(
                                 context: context,
@@ -145,26 +168,30 @@ class ProfilePage extends StatelessWidget {
                           ListTile(
                             title: const Text("アカウント削除"),
                             tileColor: Colors.red,
-                            trailing: const Icon(Icons.arrow_forward),
+                            leading: Icon(
+                              Icons.report,
+                              size: 20.0,
+                              color: Colors.white,
+                            ),
                             onTap: () async {
                               showDialog(
                                 context: context,
                                 builder: (_) {
                                   return AlertDialog(
-                                    title: const Text("ログアウトしますか？"),
+                                    title: const Text("アカウントを削除しますか？"),
                                     content: null,
                                     actions: <Widget>[
-                                      // ボタン領域
+                                      Text('アカウント削除は取り消すことはできません。'), // ボタン領域,
                                       TextButton(
                                         child: const Text("戻る"),
                                         onPressed: () => Navigator.pop(context),
                                       ),
                                       TextButton(
-                                          child: const Text("ログアウトする"),
+                                          child: const Text("アカウントを削除する。"),
                                           onPressed: () async {
                                             model.startLoading();
                                             try {
-                                              await model.signOut();
+                                              await model.deleteUser();
                                               Navigator.pushAndRemoveUntil(
                                                   context,
                                                   MaterialPageRoute(
@@ -174,7 +201,7 @@ class ProfilePage extends StatelessWidget {
                                               final snackBar = SnackBar(
                                                 backgroundColor: Colors.red,
                                                 content: Text(
-                                                  model.infoText,
+                                                  "アカウントを削除しました。",
                                                   style: const TextStyle(
                                                       color: Colors.white),
                                                 ),
@@ -189,7 +216,7 @@ class ProfilePage extends StatelessWidget {
                                                     style: const TextStyle(
                                                         color: Colors.white),
                                                   ));
-                                              Navigator.push(
+                                              Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
@@ -217,82 +244,94 @@ class ProfilePage extends StatelessWidget {
         }),
         body: Consumer<ProfilePageModel>(builder: (context, model, child) {
           return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 75,
-                    backgroundColor: Colors.blueGrey,
-                    backgroundImage: NetworkImage(model.imgURL.toString()),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) {
-                          return AlertDialog(
-                            title: const Text("プロフィールを編集しますか？"),
-                            content: null,
-                            actions: <Widget>[
-                              // ボタン領域
-                              TextButton(
-                                child: const Text("戻る"),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                              TextButton(
-                                  child: const Text("編集する"),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ProfileEditPage(
-                                            model.username,
-                                            model.rep,
-                                            model.genre,
-                                            model.imgURL),
-                                      ),
-                                    );
-                                  }),
-                            ],
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 75,
+                        backgroundColor: Colors.blueGrey,
+                        backgroundImage: NetworkImage(model.imgURL.toString()),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return AlertDialog(
+                                title: const Text("プロフィールを編集しますか？"),
+                                content: null,
+                                actions: <Widget>[
+                                  // ボタン領域
+                                  TextButton(
+                                    child: const Text("戻る"),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  TextButton(
+                                      child: const Text("編集する"),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProfileEditPage(
+                                                    model.username,
+                                                    model.rep,
+                                                    model.genre,
+                                                    model.imgURL),
+                                          ),
+                                        );
+                                      }),
+                                ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: const Text(
-                      'プロフィールを編集する',
-                      style: TextStyle(color: Colors.teal),
+                        child: const Text(
+                          'プロフィールを編集する',
+                          style: TextStyle(color: Colors.teal),
+                        ),
+                      ),
+                      Text(
+                        model.username ?? '',
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        model.rep == null || model.rep == 'null'
+                            ? 'レペゼンなし'
+                            : model.rep.toString(),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white70,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        model.genre == null || model.genre == 'null'
+                            ? 'ジャンルなし'
+                            : model.genre.toString(),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (model.isLoading)
+                  Container(
+                    color: Colors.black54,
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
                   ),
-                  Text(
-                    model.username ?? '',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    model.rep == null || model.rep == 'null'
-                        ? 'レペゼンなし'
-                        : model.rep.toString(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white70,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    model.genre == null || model.genre == 'null'
-                        ? 'ジャンルなし'
-                        : model.genre.toString(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white70,
-                    ),
-                  ),
-                ],
-              ),
+              ],
             ),
           );
         }),
@@ -310,6 +349,7 @@ class header extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SizedBox(
       height: 60,
+      width: double.infinity,
       child: DrawerHeader(
         child: Text(
           '編集画面',

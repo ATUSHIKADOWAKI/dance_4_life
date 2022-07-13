@@ -49,25 +49,37 @@ class FirstPage extends StatelessWidget {
           ),
           body: Center(
             child: SingleChildScrollView(
-              child: Column(
+              child: Stack(
                 children: [
-                  for (int i = 0; i < events.length; i++) ...{
-                    EventCard(
-                      imgURL: events[i].imgURL,
-                      title: events[i].title,
-                      date: events[i].date,
-                      eventID: events[i].eventId,
-                      // blockUid: events[i].blockUid,
-                      press: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EventDetail(i),
-                          ),
-                        );
+                  Column(
+                    children: [
+                      Text(model.isLoading.toString()),
+                      for (int i = 0; i < events.length; i++) ...{
+                        EventCard(
+                          imgURL: events[i].imgURL,
+                          title: events[i].title,
+                          date: events[i].date,
+                          eventID: events[i].eventId,
+                          // blockUid: events[i].blockUid,
+                          press: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EventDetail(i),
+                              ),
+                            );
+                          },
+                        ),
                       },
+                    ],
+                  ),
+                  if (model.isLoading)
+                    Container(
+                      color: Colors.black54,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
-                  },
                 ],
               ),
             ),

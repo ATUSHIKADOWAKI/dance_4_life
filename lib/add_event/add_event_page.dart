@@ -242,7 +242,7 @@ class SecondPage extends StatelessWidget {
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
-                  )
+                  ),
               ],
             );
           })),

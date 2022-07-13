@@ -54,12 +54,6 @@ class RootPage extends StatelessWidget {
                     currentIndex = model.currentIndex;
                   }),
             ),
-            if (model.isLoading)
-              Container(
-                  color: Colors.black54,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ))
           ],
         );
       }),
