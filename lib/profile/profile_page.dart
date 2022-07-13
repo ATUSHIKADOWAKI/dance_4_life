@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plantapp2/host_event/host_event_page.dart';
@@ -6,7 +5,6 @@ import 'package:plantapp2/login/login_page.dart';
 import 'package:plantapp2/my_entry_event/my_entry_page.dart';
 import 'package:plantapp2/profile/profile_page_model.dart';
 import 'package:provider/provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 import '../profile_edit/profile_edit_page.dart';
 
